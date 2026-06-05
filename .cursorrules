@@ -48,7 +48,7 @@
 
 ## 7. pytest (Harness 예정)
 
-- 루트: `UnitConverter_XX/`
+- 루트: 저장소 최상위 (`UnitConverter_18/`)
 - `pythonpath = ["src"]`
 - float 비교: `pytest.approx` + `FLOAT_TOLERANCE`
 
