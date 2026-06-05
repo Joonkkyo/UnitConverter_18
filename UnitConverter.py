@@ -1,35 +1,22 @@
+"""CLI entry — delegates to ECB modules."""
+
+from boundary.input import parse_input, validate_raw
+from entity.converter import convert_all
+
+
 def main():
     input_str = input("Insert value for converting (ex: meter:2.5): ")
 
-    if ':' not in input_str:
-        print("Invalid format. Use unit:value (ex: meter:2.5)")
+    error = validate_raw(input_str)
+    if error:
+        print(error)
         return
 
-    unit, value_str = input_str.split(':', 1)
+    unit, value = parse_input(input_str)
+    results = convert_all(unit, value)
 
-    try:
-        value = float(value_str)
-    except ValueError:
-        print(f"Invalid number: {value_str}")
-        return
-
-    if unit == "meter":
-        meter_value = value
-    elif unit == "feet":
-        meter_value = value / 3.28084
-    elif unit == "yard":
-        meter_value = value / 1.09361
-    else:
-        print(f"Unknown unit: {unit}")
-        return
-
-    in_meters = meter_value
-    in_feet = meter_value * 3.28084
-    in_yards = meter_value * 1.09361
-
-    print(f"{value} {unit} = {in_meters} meter")
-    print(f"{value} {unit} = {in_feet} feet")
-    print(f"{value} {unit} = {in_yards} yard")
+    for target_unit, converted in results.items():
+        print(f"{value} {unit} = {converted} {target_unit}")
 
 
 if __name__ == "__main__":

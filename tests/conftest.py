@@ -2,13 +2,8 @@
 
 import pytest
 
-from entity.constants import DEFAULT_UNITS, FLOAT_TOLERANCE
+from entity.constants import DEFAULT_UNITS
 from entity.registry import list_units
-
-
-@pytest.fixture
-def approx_tol():
-    return FLOAT_TOLERANCE
 
 
 @pytest.fixture
