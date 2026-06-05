@@ -1,10 +1,25 @@
 
 ## Unit Converter (Python)
 ![unit-converter](./unit-converter.jpg)
+
 ### Overview
 - 사용자가 입력한 길이(`단위:값`)를 기반으로, 해당 값을 다른 모든 단위로 변환해 출력하는 프로그램.
 - 새로운 단위를 추가할 때 기존 코드의 변경이 최소화되도록 설계한다.
 - 각 단위 변환 로직은 테스트 코드로 검증한다.
+
+### spec 브랜치 산출 (문서 · 계약)
+
+| 문서 | 설명 |
+|------|------|
+| [docs/PRD.md](docs/PRD.md) | 기능·도메인·C2C 요구사항 |
+| [docs/INTERFACES.md](docs/INTERFACES.md) | 테스트용 인터페이스·불변식 SSOT |
+| [Report/01](Report/01.UnitConverter_ProblemDefinition_Report.md) | Mom Test · 문제 정의 |
+| [Report/02](Report/02.UnitConverter_Interface_Architecture_Report.md) | ECB · OCP/SRP · 구조 |
+| [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) | RED 설계표 · 테스트 시나리오 |
+| [TODO_RED.md](TODO_RED.md) | RED 선행·실행 체크리스트 |
+| [.cursorrules](.cursorrules) | 프로젝트 Rule (TDD·ECB) |
+
+**워크플로 (MagicSquare_XX 참고):** spec(설계) → **red**(pytest FAIL) → **green**(최소 구현) → refactor
 
 ### 가상환경 설정 및 실행
 ```bash
@@ -63,6 +78,38 @@ deactivate
 - **출력 포맷 선택 기능** 
    - JSON / CSV / 표 형태 출력
 
+### 아키텍처 (목표 · spec)
+
+- **ECB:** `boundary → control → entity`
+- **Dual-Track TDD:** Logic (`D-*`) + UI (`U-*`)
+- **RED 우선:** pytest FAIL → GREEN → REFACTOR
+
+| Track | Layer | 테스트 ID | 디렉터리 |
+|-------|-------|-----------|----------|
+| Logic | entity, control | `D-*` | `tests/entity/`, `tests/control/` |
+| UI | boundary | `U-*` | `tests/boundary/` |
+
+### 테스트 ID (진행 요약)
+
+| ID | 요약 | spec | RED | GREEN |
+|----|------|------|-----|-------|
+| D-CVT-01 | feet ↔ meter | ✅ | ⏳ | ⏳ |
+| D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ⏳ | ⏳ |
+| U-IN-01~05 | E001~E005 | ✅ | ⏳ | ⏳ |
+| D-REG-01 | cubit 등록 | ✅ | ⏳ | ⏳ |
+
+상세: [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) · [reference.md](.cursor/skills/unit-converter-tdd/reference.md)
+
+### 프로젝트 구조 (목표)
+
+```
+UnitConverter_XX/
+├── docs/PRD.md, INTERFACES.md
+├── Report/01~03
+├── src/entity, control, boundary   # red/green에서 생성 예정
+├── tests/                        # red에서 RED 스켈레톤
+└── UnitConverter.py              # 프로토타입 (리팩터 대상)
+```
 
 ## 생성형AI를 활용한 Activities (6 시간)
 
@@ -79,5 +126,5 @@ deactivate
 5. 회고 및 발표 (1시간)
    - 실습 목표와 달성도
    - AI를 어떻게 활용했나? 도움이 된 순간과 한계는?
-   - TC를 추가해보면서 개선에 미친 영향, TC 작성 팁
+   - TC를 추가보면서 개선에 미친 영향, TC 작성 팁
    - 클린코드와 리팩토링에서 느낀 장점과 어려운점
