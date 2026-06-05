@@ -133,12 +133,16 @@ def parse_input(raw: str) -> tuple[str, float]:
     실패: ValueError + 메시지 (내부); validate 단계에서 E00x 매핑.
     """
 
-def validate_parsed(unit: str, value: float) -> str | None:
+def validate_parsed(unit: str, value: float, known_units: frozenset[str]) -> str | None:
     """
     None = OK.
-    else 에러 코드 "E001".."E005" (문자열).
-    FR-IN-03: unknown unit → E003
-    FR-IN-04: value < 0 → E004
+    else E003/E004. known_units는 control이 list_units()로 주입 (boundary→entity 직접 import 금지).
+    """
+
+def validate_raw(raw: str, known_units: frozenset[str]) -> str | None:
+    """
+    parse_input + validate_parsed 편의 함수 (U-IN RED/GREEN).
+    None = OK, else "E001".."E005".
     """
 ```
 
@@ -178,7 +182,8 @@ def format_results(
 {source_value} {source_unit} = {x} {target_unit}
 ```
 
-표시 소수: **소수점 1자리 반올림** (README `8.2`, `2.7` 와 호환 — U-OUT-01에서 고정)
+- **입력 단위 줄 제외** — `target != source_unit` 만 출력 (README는 feet/yard만)
+- 표시 소수: **소수점 1자리 반올림** (U-OUT-01)
 
 ---
 

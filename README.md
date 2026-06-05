@@ -10,7 +10,7 @@
 - 새로운 단위를 추가할 때 기존 코드의 변경이 최소화되도록 설계한다.
 - 각 단위 변환 로직은 테스트 코드로 검증한다.
 
-### spec 브랜치 산출 (문서 · 계약)
+### 프로젝트 산출 (문서 · 계약 · 회고)
 
 | 문서 | 설명 |
 |------|------|
@@ -19,6 +19,9 @@
 | [Report/01](Report/01.UnitConverter_ProblemDefinition_Report.md) | Mom Test · 문제 정의 |
 | [Report/02](Report/02.UnitConverter_Interface_Architecture_Report.md) | ECB · OCP/SRP · 구조 |
 | [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) | RED 설계표 · 테스트 시나리오 |
+| [Report/04](Report/04.UnitConverter_KPT_Retrospective_Report.md) | KPT 회고 |
+| [Report/05](Report/05.UnitConverter_REFACTOR_Report.md) | REFACTOR 전용 기록 |
+| [Prompting/01](Prompting/01.UnitConverter_REFACTOR_Session.md) | REFACTOR 세션 · 프롬프트 과정 기록 |
 | [TODO_RED.md](TODO_RED.md) | RED 선행·실행 체크리스트 |
 | [.cursorrules](.cursorrules) | 프로젝트 Rule (TDD·ECB) |
 
@@ -35,12 +38,18 @@ venv\Scripts\activate
 # 가상환경 활성화 (macOS/Linux)
 source venv/bin/activate
 
-# 실행
+# 패키지 설치 (src 패키지 import · CLI 스크립트 등록)
+pip install -e ".[dev]"
+
+# 실행 (둘 중 하나)
+unit-converter
 python UnitConverter.py
 
 # 가상환경 비활성화
 deactivate
 ```
+
+> `pip install -e ".[dev]"` 없이 실행하면 `control`/`entity` import 오류가 납니다. pytest는 `pyproject.toml`의 `pythonpath=src`를 사용합니다.
 
 ### 기본 요구사항
 1. 사용자 입력 예시:
@@ -96,10 +105,13 @@ deactivate
 
 | ID | 요약 | spec | RED | GREEN |
 |----|------|------|-----|-------|
-| D-CVT-01 | feet ↔ meter | ✅ | ⏳ | ⏳ |
-| D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ⏳ | ⏳ |
-| U-IN-01~05 | E001~E005 | ✅ | ⏳ | ⏳ |
-| D-REG-01 | cubit 등록 | ✅ | ⏳ | ⏳ |
+| D-CVT-01 | feet ↔ meter | ✅ | ✅ | ✅ |
+| D-CVT-02 | yard ↔ meter | ✅ | ✅ | ✅ |
+| D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ✅ | ✅ |
+| U-IN-01~05 | E001~E005 | ✅ | ✅ | ✅ |
+| U-FLOW-01~02 | control 흐름·mock | ✅ | ✅ | ✅ |
+| U-OUT-01 | 표 출력 | ✅ | ✅ | ✅ |
+| D-REG-01 | cubit 등록 | ✅ | ✅ | ✅ |
 
 상세: [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) · [reference.md](.cursor/skills/unit-converter-tdd/reference.md)
 
@@ -109,9 +121,9 @@ deactivate
 ./
 ├── docs/PRD.md, INTERFACES.md
 ├── Report/01~03
-├── src/entity, control, boundary   # red/green에서 생성 예정
-├── tests/                        # red에서 RED 스켈레톤
-└── UnitConverter.py              # 프로토타입 (리팩터 대상)
+├── src/entity, control, boundary
+├── tests/                        # harness + Logic/UI/control 트랙
+└── UnitConverter.py              # CLI 진입점 (ECB 위임)
 ```
 
 ## 생성형AI를 활용한 Activities (6 시간)

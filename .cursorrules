@@ -1,4 +1,6 @@
-# UnitConverter_XX — Project Rules (spec 초안)
+# UnitConverter_18 — Project Rules
+
+> **명칭:** 저장소·Rule = `UnitConverter_18` · 패키지 = `unit-converter-18` · Report/PRD 코드명 = `UnitConverter_XX` (과제 식별자)
 
 ## 1. 도메인 (SSOT)
 
@@ -34,8 +36,9 @@
 ## 5. TDD 사이클
 
 - **순서:** RED → GREEN → REFACTOR
-- **RED:** `tests/`만 · `src/` 수정 금지 · pytest **FAIL**
-- **GREEN:** RED 1묶음 최소 구현
+- **RED (spec Ask):** `tests/`만 · `src/` **수정 금지** · pytest **FAIL**
+- **RED (red 브랜치 Harness):** `tests/` + **API skeleton** 허용 — `entity.constants`(SSOT), `entity.registry`(기본 3단위·조회만), `__init__.py` · `NotImplementedError` stub(`converter`, `boundary`, `control`) · **비즈니스 로직 구현 금지**
+- **GREEN:** RED 1묶음 최소 구현 (`converter`, `input` 등 stub 해소)
 - **REFACTOR:** 계약·Test ID 동작 불변
 - **금지:** skip, xfail, assert 완화
 
