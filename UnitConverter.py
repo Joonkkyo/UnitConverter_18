@@ -1,12 +1,6 @@
-"""CLI entry — control layer only."""
+"""CLI entry — delegates to control.cli (pip install -e 후 import 가능)."""
 
-from control.flow import run_conversion
-
-
-def main():
-    input_str = input("Insert value for converting (ex: meter:2.5): ")
-    print(run_conversion(input_str))
-
+from control.cli import main
 
 if __name__ == "__main__":
     main()
