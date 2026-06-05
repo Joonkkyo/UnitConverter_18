@@ -3,6 +3,6 @@
 from boundary.input import validate_raw
 
 
-def test_u_in_05_empty_returns_e005():
-    assert validate_raw("") == "E005"
-    assert validate_raw("   ") == "E005"
+def test_u_in_05_empty_returns_e005(known_units):
+    assert validate_raw("", known_units) == "E005"
+    assert validate_raw("   ", known_units) == "E005"

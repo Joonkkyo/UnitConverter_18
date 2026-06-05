@@ -1,6 +1,9 @@
-"""Harness smoke — ECB layers importable, domain SSOT, Dual-Track dirs exist."""
+"""Harness smoke — ECB layers, Dual-Track dirs, import contract."""
 
+import ast
 from pathlib import Path
+
+import pytest
 
 from entity.constants import (
     BASE_UNIT,
@@ -10,6 +13,21 @@ from entity.constants import (
     METER_TO_YARD,
 )
 from entity.registry import get_meters_per_unit, list_units
+
+SRC_ROOT = Path(__file__).resolve().parents[1] / "src"
+TESTS_ROOT = Path(__file__).resolve().parent
+
+
+def _py_files(package: str) -> list[Path]:
+    return [p for p in (SRC_ROOT / package).glob("*.py") if p.name != "__init__.py"]
+
+
+def _imports_entity(path: Path) -> bool:
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom) and node.module and node.module.startswith("entity"):
+            return True
+    return False
 
 
 def test_domain_constants_ssot():
@@ -26,12 +44,39 @@ def test_default_units_registered():
 
 
 def test_dual_track_directories_exist():
-    tests_root = Path(__file__).resolve().parent
     for name in ("entity", "control", "boundary"):
-        assert (tests_root / name).is_dir(), f"missing tests/{name}/"
+        assert (TESTS_ROOT / name).is_dir(), f"missing tests/{name}/"
 
 
 def test_ecb_source_packages_exist():
-    src_root = Path(__file__).resolve().parents[1] / "src"
     for name in ("entity", "control", "boundary"):
-        assert (src_root / name).is_dir(), f"missing src/{name}/"
+        assert (SRC_ROOT / name).is_dir(), f"missing src/{name}/"
+
+
+def test_entity_does_not_import_upper_layers():
+    for path in _py_files("entity"):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom) and node.module:
+                assert not node.module.startswith(("boundary", "control")), (
+                    f"{path.name} must not import {node.module}"
+                )
+
+
+def test_boundary_does_not_import_entity():
+    for path in _py_files("boundary"):
+        assert not _imports_entity(path), f"{path.name} must not import entity"
+
+
+def test_entity_has_no_error_codes():
+    for path in _py_files("entity"):
+        text = path.read_text(encoding="utf-8")
+        assert "E00" not in text, f"{path.name} must not handle E001~E005"
+
+
+def test_logic_tests_no_domain_mock():
+    for track in ("entity",):
+        for path in (TESTS_ROOT / track).glob("test_*.py"):
+            text = path.read_text(encoding="utf-8")
+            assert "patch(" not in text, f"Logic mock forbidden: {path.name}"
+            assert "MagicMock" not in text, f"Logic mock forbidden: {path.name}"

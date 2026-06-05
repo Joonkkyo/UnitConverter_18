@@ -35,12 +35,18 @@ venv\Scripts\activate
 # 가상환경 활성화 (macOS/Linux)
 source venv/bin/activate
 
-# 실행
+# 패키지 설치 (src 패키지 import · CLI 스크립트 등록)
+pip install -e ".[dev]"
+
+# 실행 (둘 중 하나)
+unit-converter
 python UnitConverter.py
 
 # 가상환경 비활성화
 deactivate
 ```
+
+> `pip install -e ".[dev]"` 없이 실행하면 `control`/`entity` import 오류가 납니다. pytest는 `pyproject.toml`의 `pythonpath=src`를 사용합니다.
 
 ### 기본 요구사항
 1. 사용자 입력 예시:
@@ -96,11 +102,13 @@ deactivate
 
 | ID | 요약 | spec | RED | GREEN |
 |----|------|------|-----|-------|
-| D-CVT-01 | feet ↔ meter | ✅ | ✅ | ⏳ |
-| D-CVT-02 | yard ↔ meter | ✅ | planned | ⏳ |
-| D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ✅ | ⏳ |
-| U-IN-01~05 | E001~E005 | ✅ | ✅ | ⏳ |
-| D-REG-01 | cubit 등록 | ✅ | ⏳ | ⏳ |
+| D-CVT-01 | feet ↔ meter | ✅ | ✅ | ✅ |
+| D-CVT-02 | yard ↔ meter | ✅ | ✅ | ✅ |
+| D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ✅ | ✅ |
+| U-IN-01~05 | E001~E005 | ✅ | ✅ | ✅ |
+| U-FLOW-01~02 | control 흐름·mock | ✅ | ✅ | ✅ |
+| U-OUT-01 | 표 출력 | ✅ | ✅ | ✅ |
+| D-REG-01 | cubit 등록 | ✅ | ✅ | ✅ |
 
 상세: [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) · [reference.md](.cursor/skills/unit-converter-tdd/reference.md)
 
@@ -110,9 +118,9 @@ deactivate
 ./
 ├── docs/PRD.md, INTERFACES.md
 ├── Report/01~03
-├── src/entity, control, boundary   # red skeleton · green 구현
-├── tests/                        # red RED 스켈레톤 (7 FAIL + harness 4 PASS)
-└── UnitConverter.py              # 프로토타입 (리팩터 대상)
+├── src/entity, control, boundary
+├── tests/                        # harness + Logic/UI/control 트랙
+└── UnitConverter.py              # CLI 진입점 (ECB 위임)
 ```
 
 ## 생성형AI를 활용한 Activities (6 시간)
