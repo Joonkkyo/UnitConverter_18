@@ -15,6 +15,7 @@ def format_results(
         lines = [
             f"{source_value} {source_unit} = {round(val, 1)} {target}"
             for target, val in sorted(converted.items())
+            if target != source_unit
         ]
         return "\n".join(lines)
     if fmt == "json":

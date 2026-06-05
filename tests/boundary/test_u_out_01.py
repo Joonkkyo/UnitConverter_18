@@ -8,3 +8,4 @@ def test_u_out_01_table_one_decimal():
     result = format_results("meter", 2.5, converted, fmt="table")
     assert "2.5 meter = 8.2 feet" in result
     assert "2.5 meter = 2.7 yard" in result
+    assert "2.5 meter = 2.5 meter" not in result

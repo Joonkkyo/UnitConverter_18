@@ -9,3 +9,4 @@ def test_u_flow_01_meter_table_output():
     assert "yard" in result
     assert "8.2 feet" in result
     assert "2.7 yard" in result
+    assert "2.5 meter = 2.5 meter" not in result
