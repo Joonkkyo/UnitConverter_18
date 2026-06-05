@@ -3,5 +3,5 @@
 from boundary.input import validate_raw
 
 
-def test_u_in_01_no_colon_returns_e001():
-    assert validate_raw("meter2.5") == "E001"
+def test_u_in_01_no_colon_returns_e001(known_units):
+    assert validate_raw("meter2.5", known_units) == "E001"

@@ -8,7 +8,13 @@ from entity.registry import list_units
 
 @pytest.fixture
 def default_registry():
-    """Module-level registry — meter/feet/yard 기본 등록 (GREEN 시 register_unit 확장)."""
+    """Module-level registry — meter/feet/yard 기본 등록."""
     units = list_units()
     assert set(units) == set(DEFAULT_UNITS)
     return units
+
+
+@pytest.fixture
+def known_units(default_registry):
+    """Registered unit names for boundary validation (UI Track)."""
+    return frozenset(default_registry)
