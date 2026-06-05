@@ -32,10 +32,11 @@ description: UnitConverter_18 Dual-Track TDD·ECB 개발 절차
 
 ## GREEN
 
-1. 동일 Test ID 1묶음
-2. `src/` **최소** 구현
-3. 동일 노드 **PASS**
-4. E001~E005 entity 처리 금지 유지
+1. 동일 Test ID 1묶음 (`src/` **최소** 구현 → 동일 노드 **PASS**)
+2. E001~E005 entity 처리 금지 유지
+3. **Harness 일괄 보강 예외:** ECB smoke·계약 테스트는 RED 없이 추가 가능 — **기능 Test ID는 RED 선행 권장** (실습 3535be1 이후 신규 ID)
+
+**금지:** skip/xfail · RED 없이 기능 ID 양산
 
 ## REFACTOR
 
@@ -45,7 +46,7 @@ description: UnitConverter_18 Dual-Track TDD·ECB 개발 절차
 
 | 시점 | 명령 | 기대 |
 |------|------|------|
-| Harness | `pytest tests/test_harness_ecb.py -v` | 4 passed |
+| Harness | `pytest tests/test_harness_ecb.py -v` | 8 passed |
 | RED | `pytest tests/entity/test_d_cvt_01.py -v` | FAIL |
 | GREEN | 동일 노드 | PASS |
 

@@ -182,7 +182,8 @@ def format_results(
 {source_value} {source_unit} = {x} {target_unit}
 ```
 
-표시 소수: **소수점 1자리 반올림** (README `8.2`, `2.7` 와 호환 — U-OUT-01에서 고정)
+- **입력 단위 줄 제외** — `target != source_unit` 만 출력 (README는 feet/yard만)
+- 표시 소수: **소수점 1자리 반올림** (U-OUT-01)
 
 ---
 

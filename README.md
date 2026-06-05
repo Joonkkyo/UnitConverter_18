@@ -35,12 +35,18 @@ venv\Scripts\activate
 # 가상환경 활성화 (macOS/Linux)
 source venv/bin/activate
 
-# 실행
+# 패키지 설치 (src 패키지 import · CLI 스크립트 등록)
+pip install -e ".[dev]"
+
+# 실행 (둘 중 하나)
+unit-converter
 python UnitConverter.py
 
 # 가상환경 비활성화
 deactivate
 ```
+
+> `pip install -e ".[dev]"` 없이 실행하면 `control`/`entity` import 오류가 납니다. pytest는 `pyproject.toml`의 `pythonpath=src`를 사용합니다.
 
 ### 기본 요구사항
 1. 사용자 입력 예시:
@@ -102,7 +108,7 @@ deactivate
 | U-IN-01~05 | E001~E005 | ✅ | ✅ | ✅ |
 | U-FLOW-01~02 | control 흐름·mock | ✅ | ✅ | ✅ |
 | U-OUT-01 | 표 출력 | ✅ | ✅ | ✅ |
-| D-REG-01 | cubit 등록 | ✅ | ⏳ | ⏳ |
+| D-REG-01 | cubit 등록 | ✅ | ✅ | ✅ |
 
 상세: [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) · [reference.md](.cursor/skills/unit-converter-tdd/reference.md)
 

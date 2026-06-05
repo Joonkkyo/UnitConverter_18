@@ -59,7 +59,7 @@
 | **D-CVT-01** | FR-CVT-01 | [x] Report 03 | [x] | [x] |
 | **D-CVT-02** | FR-CVT-04 | [x] | [x] | [x] |
 | **D-CVT-03** | FR-CVT-03 | [x] | [x] | [x] |
-| **D-REG-01** | FR-REG-01 | [x] | [ ] | [ ] |
+| **D-REG-01** | FR-REG-01 | [x] | [x] | [x] |
 | **U-IN-01** | FR-IN-01 | [x] | [x] | [x] |
 | **U-IN-02** | FR-IN-02 | [x] | [x] | [x] |
 | **U-IN-03** | FR-IN-03 | [x] | [x] | [x] |
