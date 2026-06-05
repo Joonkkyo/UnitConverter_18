@@ -97,9 +97,11 @@ deactivate
 | ID | 요약 | spec | RED | GREEN |
 |----|------|------|-----|-------|
 | D-CVT-01 | feet ↔ meter | ✅ | ✅ | ✅ |
-| D-CVT-02 | yard ↔ meter | ✅ | planned | ⏳ |
+| D-CVT-02 | yard ↔ meter | ✅ | ✅ | ✅ |
 | D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ✅ | ✅ |
 | U-IN-01~05 | E001~E005 | ✅ | ✅ | ✅ |
+| U-FLOW-01~02 | control 흐름·mock | ✅ | ✅ | ✅ |
+| U-OUT-01 | 표 출력 | ✅ | ✅ | ✅ |
 | D-REG-01 | cubit 등록 | ✅ | ⏳ | ⏳ |
 
 상세: [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) · [reference.md](.cursor/skills/unit-converter-tdd/reference.md)
@@ -111,7 +113,7 @@ deactivate
 ├── docs/PRD.md, INTERFACES.md
 ├── Report/01~03
 ├── src/entity, control, boundary
-├── tests/                        # 11 passed (harness + D-CVT + U-IN)
+├── tests/                        # harness + Logic/UI/control 트랙
 └── UnitConverter.py              # CLI 진입점 (ECB 위임)
 ```
 
