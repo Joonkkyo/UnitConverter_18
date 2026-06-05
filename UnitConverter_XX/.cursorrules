@@ -1,0 +1,57 @@
+# UnitConverter_XX — Project Rules (spec 초안)
+
+## 1. 도메인 (SSOT)
+
+- **기준 단위:** `meter` — `entity.constants.BASE_UNIT`
+- **비율:** `METER_TO_FEET = 3.28084`, `METER_TO_YARD = 1.09361` — constants **만** 사용. 리터럴 산재 **금지**.
+- **파생:** feet ↔ yard 는 meter 경유 (R-04).
+- **입력:** `unit:value` — 콜론 1개, value ≥ 0.
+- **초기 단위:** meter, feet, yard — `registry` 기본 등록.
+
+## 2. 오류 코드 (boundary)
+
+| 코드 | 조건 | entity |
+|------|------|--------|
+| E001 | `:` 없음 | **금지** |
+| E002 | 숫자 파싱 실패 | **금지** |
+| E003 | 미등록 단위 | **금지** |
+| E004 | 음수 | **금지** |
+| E005 | 빈 입력 | **금지** |
+
+## 3. 아키텍처 (ECB)
+
+- **의존:** `boundary → control → entity`
+- **금지:** `entity` 가 상위 레이어 import
+- **OCP:** 새 단위 = `register_unit` — converter 분기 증식 금지
+
+## 4. Dual-Track TDD
+
+| Track | Layer | ID | 디렉터리 | Mock |
+|-------|-------|-----|----------|------|
+| Logic | entity, control | `D-*` | `tests/entity/`, `tests/control/` | Domain Mock **금지** |
+| UI | boundary | `U-*` | `tests/boundary/` | entity Mock **허용** |
+
+## 5. TDD 사이클
+
+- **순서:** RED → GREEN → REFACTOR
+- **RED:** `tests/`만 · `src/` 수정 금지 · pytest **FAIL**
+- **GREEN:** RED 1묶음 최소 구현
+- **REFACTOR:** 계약·Test ID 동작 불변
+- **금지:** skip, xfail, assert 완화
+
+## 6. AI 행동
+
+- **언어:** 보고·주석 한국어 (식별자·pytest ID 영문)
+- **선언:** `Phase` · `Layer` · `Track` · `Test ID`
+- **git commit:** 사용자 요청 시만
+- **문서 SSOT:** `docs/PRD.md`, `docs/INTERFACES.md`, `Report/03`
+
+## 7. pytest (Harness 예정)
+
+- 루트: `UnitConverter_XX/`
+- `pythonpath = ["src"]`
+- float 비교: `pytest.approx` + `FLOAT_TOLERANCE`
+
+## 8. 비목표
+
+- GUI · 길이 외 단위 · 수동 “대충 맞음” 완료
