@@ -1,11 +1,20 @@
 """Unit registry — FR-REG."""
 
-from entity.constants import METER_TO_FEET, METER_TO_YARD
+from entity.constants import BASE_UNIT, DEFAULT_UNITS, METER_TO_FEET, METER_TO_YARD
+
+
+def _default_meters_per_unit(name: str) -> float:
+    if name == BASE_UNIT:
+        return 1.0
+    if name == "feet":
+        return 1.0 / METER_TO_FEET
+    if name == "yard":
+        return 1.0 / METER_TO_YARD
+    raise ValueError(f"unsupported default unit: {name}")
+
 
 _units: dict[str, float] = {
-    "meter": 1.0,
-    "feet": 1.0 / METER_TO_FEET,
-    "yard": 1.0 / METER_TO_YARD,
+    name: _default_meters_per_unit(name) for name in DEFAULT_UNITS
 }
 
 
