@@ -12,15 +12,46 @@
 
 ### spec 브랜치 산출 (문서 · 계약)
 
-| 문서 | 설명 |
-|------|------|
-| [docs/PRD.md](docs/PRD.md) | 기능·도메인·C2C 요구사항 |
-| [docs/INTERFACES.md](docs/INTERFACES.md) | 테스트용 인터페이스·불변식 SSOT |
-| [Report/01](Report/01.UnitConverter_ProblemDefinition_Report.md) | Mom Test · 문제 정의 |
-| [Report/02](Report/02.UnitConverter_Interface_Architecture_Report.md) | ECB · OCP/SRP · 구조 |
-| [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) | RED 설계표 · 테스트 시나리오 |
-| [TODO_RED.md](TODO_RED.md) | RED 선행·실행 체크리스트 |
-| [.cursorrules](.cursorrules) | 프로젝트 Rule (TDD·ECB) |
+**권장 읽기 순서:** [Report/01](Report/01.UnitConverter_ProblemDefinition_Report.md) → [docs/PRD.md](docs/PRD.md) → [docs/INTERFACES.md](docs/INTERFACES.md) → [Report/02](Report/02.UnitConverter_Interface_Architecture_Report.md) → [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) → [TODO_RED.md](TODO_RED.md)
+
+#### 문서 · 계약 (spec ✅)
+
+| 문서 | 설명 | spec |
+|------|------|------|
+| [docs/PRD.md](docs/PRD.md) | 기능·도메인·C2C 요구사항 | ✅ |
+| [docs/INTERFACES.md](docs/INTERFACES.md) | 테스트용 인터페이스·불변식 SSOT | ✅ |
+| [Report/01](Report/01.UnitConverter_ProblemDefinition_Report.md) | Mom Test · 문제 정의 | ✅ |
+| [Report/02](Report/02.UnitConverter_Interface_Architecture_Report.md) | ECB · OCP/SRP · 구조 | ✅ |
+| [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) | RED 설계표 · 테스트 시나리오 | ✅ |
+| [TODO_RED.md](TODO_RED.md) | RED 선행·실행 체크리스트 (상세 SSOT) | ✅ |
+| [.cursorrules](.cursorrules) | 프로젝트 Rule (TDD·ECB) | ✅ |
+| [reference.md](.cursor/skills/unit-converter-tdd/reference.md) | D-*/U-* Test ID 목록 | ✅ |
+| [UnitConverter.py](UnitConverter.py) | 프로토타입 · 분석 기준 코드 ([Report/01](Report/01.UnitConverter_ProblemDefinition_Report.md) §6) | ✅ |
+
+#### Cursor · Harness (red ⏳)
+
+| 항목 | 설명 | spec |
+|------|------|------|
+| `unit-converter-tdd/SKILL.md` | RED/GREEN/REFACTOR 절차 | ⏳ red |
+| `.cursor/commands/` (`/tdd-red`, `/review-ecb` 등) | TDD Command | ⏳ red |
+| `pyproject.toml`, `src/`, `tests/` | ECB Harness · pytest | ⏳ red |
+
+**계약 요약 (상세: [INTERFACES.md](docs/INTERFACES.md))**
+
+| 항목 | 값 |
+|------|-----|
+| 기준 단위 | `meter` |
+| 입력 형식 | `unit:value` (value ≥ 0) |
+
+| 코드 | 의미 | 담당 |
+|------|------|------|
+| E001 | `:` 없음 (형식 오류) | boundary |
+| E002 | 숫자 파싱 실패 | boundary |
+| E003 | 미등록 단위 | boundary |
+| E004 | 음수 | boundary |
+| E005 | 빈 입력 | boundary |
+
+**spec 완료 정의:** Report 03 RED 설계표 확정 · `INTERFACES` 계약 확정 · **`src/` 구현·Harness 미착수**. RED 진입 조건: [TODO_RED.md](TODO_RED.md) §1·§3.
 
 **워크플로 (MagicSquare_XX 참고):** spec(설계) → **red**(pytest FAIL) → **green**(최소 구현) → refactor
 
@@ -81,7 +112,9 @@ deactivate
 - **출력 포맷 선택 기능** 
    - JSON / CSV / 표 형태 출력
 
-### 아키텍처 (목표 · spec)
+### 아키텍처 (목표)
+
+> ECB·Dual-Track 상세: [Report/02](Report/02.UnitConverter_Interface_Architecture_Report.md)
 
 - **ECB:** `boundary → control → entity`
 - **Dual-Track TDD:** Logic (`D-*`) + UI (`U-*`)
@@ -92,32 +125,45 @@ deactivate
 | Logic | entity, control | `D-*` | `tests/entity/`, `tests/control/` |
 | UI | boundary | `U-*` | `tests/boundary/` |
 
-### 테스트 ID (진행 요약)
+### 테스트 ID (브랜치 진행 요약)
+
+> 전체 ID: [reference.md](.cursor/skills/unit-converter-tdd/reference.md) · RED 시나리오: [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md)
 
 | ID | 요약 | spec | RED | GREEN |
 |----|------|------|-----|-------|
 | D-CVT-01 | feet ↔ meter | ✅ | ⏳ | ⏳ |
 | D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ⏳ | ⏳ |
 | U-IN-01~05 | E001~E005 | ✅ | ⏳ | ⏳ |
+| U-OUT-01~03 | 표/JSON/CSV 출력 | ✅ | ⏳ | ⏳ |
 | D-REG-01 | cubit 등록 | ✅ | ⏳ | ⏳ |
 
-상세: [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) · [reference.md](.cursor/skills/unit-converter-tdd/reference.md)
-
-### 프로젝트 구조 (목표)
+### 프로젝트 구조
 
 ```
 ./
-├── docs/PRD.md, INTERFACES.md
-├── Report/01~03
-├── src/entity, control, boundary   # red/green에서 생성 예정
-├── tests/                        # red에서 RED 스켈레톤
-└── UnitConverter.py              # 프로토타입 (리팩터 대상)
+├── docs/                         # PRD, INTERFACES
+├── Report/                       # 01~03
+├── TODO_RED.md
+├── .cursorrules
+├── .cursor/skills/unit-converter-tdd/
+│   └── reference.md
+├── UnitConverter.py              # 프로토타입 (리팩터 대상)
+├── src/entity, control, boundary   # ⏳ red/green
+└── tests/                        # ⏳ red (RED 스켈레톤)
 ```
+
+### Cursor 워크플로 (red 예정)
+
+| Command | 역할 |
+|---------|------|
+| `/tdd-red` | RED: `tests/`만 · pytest FAIL |
+| `/green-minimal` | RED 1묶음 최소 GREEN |
+| `/review-ecb` | ECB·계약 정적 리뷰 |
 
 ## 생성형AI를 활용한 Activities (6 시간)
 
 1. 문제 코드 및 기본 요구사항 분석 (0.5시간)
-   - 기본 코드구조, 로직 이해
+   - [UnitConverter.py](UnitConverter.py) 구조·로직 · [Report/01](Report/01.UnitConverter_ProblemDefinition_Report.md)
 2. 기본 요구사항 및 품질 요구사항 구현 (2시간)
    - OCP를 만족하는 인터페이스 구현 
    - SRP를 만족하도록 클래스 구현 
