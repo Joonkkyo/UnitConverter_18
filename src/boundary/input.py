@@ -1,6 +1,4 @@
-"""Boundary input — FR-IN-* / U-IN track."""
-
-from entity.registry import get_meters_per_unit
+"""Boundary input — FR-IN-* / U-IN track (no entity import)."""
 
 
 def parse_input(raw: str) -> tuple[str, float]:
@@ -16,18 +14,20 @@ def parse_input(raw: str) -> tuple[str, float]:
     return unit, value
 
 
-def validate_parsed(unit: str, value: float) -> str | None:
-    """None = OK, else E001..E005 error code string."""
+def validate_parsed(
+    unit: str,
+    value: float,
+    known_units: frozenset[str],
+) -> str | None:
+    """None = OK, else E003/E004 (format errors handled in validate_raw)."""
     if value < 0:
         return "E004"
-    try:
-        get_meters_per_unit(unit)
-    except KeyError:
+    if unit not in known_units:
         return "E003"
     return None
 
 
-def validate_raw(raw: str) -> str | None:
+def validate_raw(raw: str, known_units: frozenset[str]) -> str | None:
     """Parse + validate; None = OK, else E001..E005."""
     if not raw.strip():
         return "E005"
@@ -38,4 +38,4 @@ def validate_raw(raw: str) -> str | None:
         value = float(value_str)
     except ValueError:
         return "E002"
-    return validate_parsed(unit, value)
+    return validate_parsed(unit, value, known_units)
