@@ -96,9 +96,10 @@ deactivate
 
 | ID | 요약 | spec | RED | GREEN |
 |----|------|------|-----|-------|
-| D-CVT-01 | feet ↔ meter | ✅ | ⏳ | ⏳ |
-| D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ⏳ | ⏳ |
-| U-IN-01~05 | E001~E005 | ✅ | ⏳ | ⏳ |
+| D-CVT-01 | feet ↔ meter | ✅ | ✅ | ⏳ |
+| D-CVT-02 | yard ↔ meter | ✅ | planned | ⏳ |
+| D-CVT-03 | meter:2.5 → 전 단위 | ✅ | ✅ | ⏳ |
+| U-IN-01~05 | E001~E005 | ✅ | ✅ | ⏳ |
 | D-REG-01 | cubit 등록 | ✅ | ⏳ | ⏳ |
 
 상세: [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) · [reference.md](.cursor/skills/unit-converter-tdd/reference.md)
@@ -109,8 +110,8 @@ deactivate
 ./
 ├── docs/PRD.md, INTERFACES.md
 ├── Report/01~03
-├── src/entity, control, boundary   # red/green에서 생성 예정
-├── tests/                        # red에서 RED 스켈레톤
+├── src/entity, control, boundary   # red skeleton · green 구현
+├── tests/                        # red RED 스켈레톤 (7 FAIL + harness 4 PASS)
 └── UnitConverter.py              # 프로토타입 (리팩터 대상)
 ```
 

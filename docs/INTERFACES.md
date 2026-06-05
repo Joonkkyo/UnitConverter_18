@@ -140,6 +140,12 @@ def validate_parsed(unit: str, value: float) -> str | None:
     FR-IN-03: unknown unit → E003
     FR-IN-04: value < 0 → E004
     """
+
+def validate_raw(raw: str) -> str | None:
+    """
+    parse_input + validate_parsed 편의 함수 (U-IN RED/GREEN).
+    None = OK, else "E001".."E005".
+    """
 ```
 
 **에러 코드 (boundary SSOT)**

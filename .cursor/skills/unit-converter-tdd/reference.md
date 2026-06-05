@@ -1,4 +1,6 @@
-# Test ID SSOT — UnitConverter_XX
+# Test ID SSOT — UnitConverter_18
+
+> Report 코드명 `UnitConverter_XX`와 동일 Test ID. 패키지: `unit-converter-18`.
 
 > 연계: [docs/PRD.md](../../../docs/PRD.md) · [Report/03](../../../Report/03.UnitConverter_RED_TestPlan_Report.md)
 

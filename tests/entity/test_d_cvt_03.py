@@ -6,8 +6,10 @@ from entity.constants import FLOAT_TOLERANCE
 from entity.converter import convert_all
 
 
-def test_d_cvt_03_meter_convert_all_default_units():
-    # Given / When: meter:2.5
+def test_d_cvt_03_meter_convert_all_default_units(default_registry):
+    # Given: default registry (meter, feet, yard)
+    assert set(default_registry) == {"meter", "feet", "yard"}
+    # When: meter:2.5
     result = convert_all("meter", 2.5)
     # Then: all default units
     assert set(result.keys()) == {"meter", "feet", "yard"}
