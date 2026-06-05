@@ -10,7 +10,7 @@
 - 새로운 단위를 추가할 때 기존 코드의 변경이 최소화되도록 설계한다.
 - 각 단위 변환 로직은 테스트 코드로 검증한다.
 
-### spec 브랜치 산출 (문서 · 계약)
+### 프로젝트 산출 (문서 · 계약 · 회고)
 
 | 문서 | 설명 |
 |------|------|
@@ -19,6 +19,9 @@
 | [Report/01](Report/01.UnitConverter_ProblemDefinition_Report.md) | Mom Test · 문제 정의 |
 | [Report/02](Report/02.UnitConverter_Interface_Architecture_Report.md) | ECB · OCP/SRP · 구조 |
 | [Report/03](Report/03.UnitConverter_RED_TestPlan_Report.md) | RED 설계표 · 테스트 시나리오 |
+| [Report/04](Report/04.UnitConverter_KPT_Retrospective_Report.md) | KPT 회고 |
+| [Report/05](Report/05.UnitConverter_REFACTOR_Report.md) | REFACTOR 전용 기록 |
+| [Prompting/01](Prompting/01.UnitConverter_REFACTOR_Session.md) | REFACTOR 세션 · 프롬프트 과정 기록 |
 | [TODO_RED.md](TODO_RED.md) | RED 선행·실행 체크리스트 |
 | [.cursorrules](.cursorrules) | 프로젝트 Rule (TDD·ECB) |
 
