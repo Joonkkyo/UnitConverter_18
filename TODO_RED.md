@@ -23,10 +23,10 @@
 | [x] `docs/INTERFACES.md` | spec |
 | [x] Report 01~03 | spec |
 | [x] `.cursorrules` | spec |
-| [ ] `pyproject.toml` + `pip install -e ".[dev]"` | red |
-| [ ] `src/entity|control|boundary` placeholder | red |
-| [ ] `tests/conftest.py`, `test_harness_ecb.py` | red |
-| [ ] `pytest tests/test_harness_ecb.py` → 4 passed | red |
+| [x] `pyproject.toml` + `pip install -e ".[dev]"` | red |
+| [x] `src/entity|control|boundary` placeholder | red |
+| [x] `tests/conftest.py`, `test_harness_ecb.py` | red |
+| [x] `pytest tests/test_harness_ecb.py` → 4 passed | red |
 | [ ] Command `/tdd-red` (`.cursor/commands/`) | red |
 | [ ] Skill `unit-converter-tdd/SKILL.md` | red |
 
@@ -56,14 +56,14 @@
 
 | Test ID | PRD | 선행 설계 | RED 실행 | GREEN |
 |---------|-----|-----------|----------|-------|
-| **D-CVT-01** | FR-CVT-01 | [x] Report 03 | [ ] | [ ] |
-| **D-CVT-03** | FR-CVT-03 | [x] | [ ] | [ ] |
+| **D-CVT-01** | FR-CVT-01 | [x] Report 03 | [x] | [ ] |
+| **D-CVT-03** | FR-CVT-03 | [x] | [x] | [ ] |
 | **D-REG-01** | FR-REG-01 | [x] | [ ] | [ ] |
-| **U-IN-01** | FR-IN-01 | [x] | [ ] | [ ] |
-| **U-IN-02** | FR-IN-02 | [x] | [ ] | [ ] |
-| **U-IN-03** | FR-IN-03 | [x] | [ ] | [ ] |
-| **U-IN-04** | FR-IN-04 | [x] | [ ] | [ ] |
-| **U-IN-05** | FR-IN-05 | [x] | [ ] | [ ] |
+| **U-IN-01** | FR-IN-01 | [x] | [x] | [ ] |
+| **U-IN-02** | FR-IN-02 | [x] | [x] | [ ] |
+| **U-IN-03** | FR-IN-03 | [x] | [x] | [ ] |
+| **U-IN-04** | FR-IN-04 | [x] | [x] | [ ] |
+| **U-IN-05** | FR-IN-05 | [x] | [x] | [ ] |
 | **U-OUT-01** | FR-OUT-01 | [x] | [ ] | [ ] |
 
 **권장 RED 순서:** D-CVT-01 → D-CVT-03 → U-IN-01~05 → U-OUT-01 → D-REG-01
